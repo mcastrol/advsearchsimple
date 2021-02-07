@@ -8,7 +8,7 @@ which percentatge of the list of words were found in the file.
 The search is not cap sensivity, then it will find the words even they 
 are in caps or lower case or mix.
 
-In this version, the word is considerd a sequence of characters.
+In this version, a word is considerd a sequence of characters.
 Then, if you search "manage" and the file contents "management", the 
 search considered as found. However, you still can search for 'manage ', adding space to the end, then,
 management will not be included.
