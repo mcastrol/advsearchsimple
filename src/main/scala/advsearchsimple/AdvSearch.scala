@@ -31,6 +31,7 @@ object AdvSearch extends App {
   }
 
   def console(path: String): Unit = {
+    //set variables
     val topN = 10 //config how many files show
     val scanner = new java.util.Scanner(System.in)
     var done = false
@@ -51,9 +52,7 @@ object AdvSearch extends App {
     }
   }
 
-  //set variables
   val path = if(args.length>0) args(0) else "./src/test/resourses/testdata/" //path to search files 1st. parameter
-//  val path = args(0)
   if (existPath(path)) console(path)
   else println("Please, indicate a valid directory to search")
 }
