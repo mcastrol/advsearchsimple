@@ -1,8 +1,6 @@
 package advsearchsimple
 
-
-import advsearchsimple.FileInMemory.calcRankingTotal
-
+import advsearchsimple.FileInMemory.{calcRankingTotal, existPath}
 
 object AdvSearch extends App {
 
@@ -32,26 +30,30 @@ object AdvSearch extends App {
     println("quote them and add a blank. For instance, put 'courious ' to exclude 'couriousity' in matching")
   }
 
-
-  //set variables
-  val path = args(0) //path to search files 1st. parameter
-  val topN = 10 //config how many files show
-  val scanner = new java.util.Scanner(System.in)
-  var done = false
-  while (!done) {
-    println("Please, enter the words to search (comma separated) - no words or quit to finish ")
-    print("search> ")
-    val words = scanner.nextLine()
-    if (words.isEmpty || words.contains("quit"))
-      done = true
-    else {
-      val words_to_find = words.toLowerCase.split(",")
-      printf("Wait... searching %d words: %s in folder %s\n", words_to_find.length, words, path)
-      if (words.toLowerCase.split(",").length > 0) {
-        val mr = advsearchsimple.FileInMemory.calcRankingTotal(path, words.toLowerCase.split(","))
-        printResults(path, words, mr, topN)
+  def console(path: String): Unit = {
+    val topN = 10 //config how many files show
+    val scanner = new java.util.Scanner(System.in)
+    var done = false
+    while (!done) {
+      printf("Please, enter the words to search in %s (comma separated) - no words or quit to finish\n", path)
+      print("search> ")
+      val words = scanner.nextLine()
+      if (words.isEmpty || words.contains("quit"))
+        done = true
+      else {
+        val words_to_find = words.toLowerCase.split(",")
+        printf("Wait... searching %d words: %s in folder %s\n", words_to_find.length, words, path)
+        if (words.toLowerCase.split(",").length > 0) {
+          val mr = advsearchsimple.FileInMemory.calcRankingTotal(path, words.toLowerCase.split(","))
+          printResults(path, words, mr, topN)
+        }
       }
     }
   }
 
+  //set variables
+  val path = if(args.length>0) args(0) else "./src/test/resourses/testdata/" //path to search files 1st. parameter
+//  val path = args(0)
+  if (existPath(path)) console(path)
+  else println("Please, indicate a valid directory to search")
 }

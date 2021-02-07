@@ -35,7 +35,7 @@ object FileInMemoryTest {
 
 
   def main(args: Array[String]): Unit = {
-    val path = "/home/marcela/programs/scala/challenge/advsearch/testdata"
+    val path = "./src/test/resourses/testdata/"
     val list_of_files = Map("lorem_ipsum0.txt" -> 3248, "lorem_ipsum1.txt" -> 3049, "lorem_ipsum2.txt" -> 2204, "test.txt" -> 174)
     //check if get expected list of files
     TestGetListOfFiles(path, list_of_files.keys.toArray)

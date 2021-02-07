@@ -15,6 +15,12 @@ object FileInMemory {
   codec.onUnmappableCharacter(CodingErrorAction.REPLACE)
 
   //function to get the list of files from a folder
+  def existPath(directory_name: String): Boolean = {
+    val directory=new File(directory_name)
+    directory.exists()
+  }
+
+  //function to get the list of files from a folder
   def getListOfFiles(directory: File): List[File] = {
     directory.listFiles.filter(_.isFile).toList
   }
