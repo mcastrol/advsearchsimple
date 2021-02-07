@@ -58,10 +58,14 @@ object FileInMemory {
     (lnames zip lranking).sortBy(_._2).reverse.toMap
   }
 
-  //entry point: principal function to calculate the rannking of the list of words
-  def calcRankingTotal(path: String, words_to_find:Array[String]): Map[String, Float] = {
+  def initListOfFiles(path: String):  List[FileInMemory] ={
     val files=getListOfFiles(new File(path))
-    val list_file_in_memory_0=initFileInMemory(files)
-    genMapToReturn(changeList(list_file_in_memory_0,words_to_find))
+    val list_files_in_memory=initFileInMemory(files)
+    list_files_in_memory
+  }
+
+  //  entry point: principal function to calculate the rannking of the list of words
+  def calcRankingTotal(path: String, words_to_find:Array[String],list_files_in_memory: List[FileInMemory]): Map[String, Float] = {
+    genMapToReturn(changeList(list_files_in_memory,words_to_find))
   }
 }

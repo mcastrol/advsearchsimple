@@ -1,6 +1,6 @@
 package advsearchsimple
 
-import advsearchsimple.FileInMemory.{calcRankingTotal, existPath}
+import advsearchsimple.FileInMemory.{calcRankingTotal, existPath, initListOfFiles}
 
 object AdvSearch extends App {
 
@@ -30,7 +30,7 @@ object AdvSearch extends App {
     println("quote them and add a blank. For instance, put 'courious ' to exclude 'couriousity' in matching")
   }
 
-  def console(path: String): Unit = {
+  def console(path: String,list_files_in_memory: List[FileInMemory]): Unit = {
     //set variables
     val topN = 10 //config how many files show
     val scanner = new java.util.Scanner(System.in)
@@ -45,7 +45,7 @@ object AdvSearch extends App {
         val words_to_find = words.toLowerCase.split(",")
         printf("Wait... searching %d words: %s in folder %s\n", words_to_find.length, words, path)
         if (words.toLowerCase.split(",").length > 0) {
-          val mr = advsearchsimple.FileInMemory.calcRankingTotal(path, words.toLowerCase.split(","))
+          val mr = advsearchsimple.FileInMemory.calcRankingTotal(path, words.toLowerCase.split(","),list_files_in_memory)
           printResults(path, words, mr, topN)
         }
       }
@@ -53,6 +53,9 @@ object AdvSearch extends App {
   }
 
   val path = if(args.length>0) args(0) else "./src/test/resourses/testdata/" //path to search files 1st. parameter
-  if (existPath(path)) console(path)
+  if (existPath(path)) {
+    val list_files_in_memory = initListOfFiles(path)
+    console(path, list_files_in_memory)
+  }
   else println("Please, indicate a valid directory to search")
 }

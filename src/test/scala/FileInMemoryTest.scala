@@ -1,4 +1,4 @@
-import advsearchsimple.FileInMemory.{calcRanking, calcRankingTotal, getListOfFiles, initFileInMemory}
+import advsearchsimple.FileInMemory.{calcRanking, calcRankingTotal, getListOfFiles, initFileInMemory, initListOfFiles}
 
 import java.io.File
 
@@ -27,7 +27,8 @@ object FileInMemoryTest {
   }
 
   def TestCalcRankingTotalSpark(path: String, words_to_find: Array[String], expected_results: Map[String, Float]): Unit = {
-    val map_results = calcRankingTotal(path: String, words_to_find: Array[String])
+    val list_files_in_memory = initListOfFiles(path)
+    val map_results = calcRankingTotal(path: String, words_to_find: Array[String],list_files_in_memory)
     for (x <- expected_results) {
       assert(map_results(x._1) == x._2)
     }
